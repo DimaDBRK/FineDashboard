@@ -32,10 +32,22 @@ import { useEffect, useState, useContext} from 'react';
 import { useLocation, useNavigate } from "react-router-dom";
 import FlexBetween from 'components/FlexBetween';
 import { AppContext } from "App";
+import axios from "axios";
 
 // import profileImage from "assets/profile.jpeg";
 
 //Items of Left side Menu
+
+const sideIcons ={
+    "Data": <ReceiptLongOutlined />,
+    "Geography": <PublicOutlined />,
+    "Population": <PointOfSaleOutlined />,
+    "Yearly": <TodayOutlined />,
+    "Birth": <CalendarMonthOutlined />,
+    "Education": <PieChartOutlined />,
+}
+
+
 const navItems = [
  
     {
@@ -68,7 +80,8 @@ const navItems = [
         icon: <PieChartOutlined />,
         link: ""
     }]
-    
+
+
 const navDeveloper = [
     {
         text: "Users",
@@ -102,11 +115,40 @@ const Sidebar = ({
     const navigate = useNavigate();
     const theme = useTheme();
     // status
-    const { isLogin, setIsLogin, isDeveloper, setIsDeveloper, userinfo, setUserInfo } = useContext(AppContext);
+    const { isLogin, setIsLogin, isDeveloper, setIsDeveloper, userinfo, setUserInfo, reports, setReports } = useContext(AppContext);
+    const [msg, setMsg] = useState('');
+    const [navReports, setNavReports] = useState([]);
 
     useEffect(()=>{
         setActive(pathname.substring(1));
     }, [pathname]);
+
+    useEffect(()=>{
+        console.log('reports on navbar =>');
+        // setNavReports([]);
+        const temp = [];
+        reports.map(item=> {
+            if (item.isdisplay) {
+                temp.push(item.report)
+            console.log("temp", temp)
+            }
+        })
+        setNavReports(temp);
+        console.log("navReports", navReports)
+      }, [reports])
+
+    // const getReports = async () =>{
+     
+    //     try {
+    //         const res = await axios.get(`/wbapi/alluserreportsisdispaly/${userinfo.user_id}`);
+    //         console.log('res=>',res.data);
+    //         setReports(res.data);
+           
+    //     }catch (err) {
+    //         setMsg(err.response.data.msg);
+    //         console.log(err.response.data.msg);
+    //     }
+    //   }
 
   return (
     <Box component="nav">
@@ -171,18 +213,12 @@ const Sidebar = ({
                         </ListItem>
                         {/* Reports */}
                         <Typography key={"Reports"} fontWeight="bold" sx={{ m: "1rem 0 1rem 2rem"}}>
-                            {"Reports"}
+                            My reports
                         </Typography> 
 
-                        {
-                            navItems.map(({text, icon, link})=>{
-                                if (!icon) {
-                                    return (
-                                    <Typography key={text} fontWeight="bold" sx={{ m: "1rem 0 1rem 2rem"}}>
-                                        {text}
-                                    </Typography> 
-                                    ) 
-                                }
+                        { navReports.length > 0 && (
+                            navReports.map((text)=>{
+                             
                                 
                                 const lcText = text.toLowerCase();
                                 return (
@@ -202,7 +238,7 @@ const Sidebar = ({
                                                     color: active === lcText ? theme.palette.primary[600] : theme.palette.secondary[200]
                                                 }}
                                                 >
-                                                    {icon}
+                                                    {sideIcons[text]}
                                                 </ListItemIcon>
                                                 <ListItemText primary={text}/>
                                                     {active === lcText && (
@@ -213,7 +249,8 @@ const Sidebar = ({
                                         </ListItemButton>
                                     </ListItem>
                                 );
-                            })}
+                            })
+                        )}
 
                         {/* Developer */}
                         { isDeveloper && (

@@ -49,12 +49,14 @@ function App() {
   const [isDeveloper, setIsDeveloper] =  useState(false);
  //userinfo
   const [userinfo, setUserInfo] = useState({});
+  // for my reports
+  const [reports, setReports] = useState([]);
   
 
   return (
 
     <div className="app">
-      <AppContext.Provider value ={{ token, setToken, isLogin, setIsLogin, isDeveloper, setIsDeveloper, userinfo, setUserInfo}}>
+      <AppContext.Provider value ={{ token, setToken, isLogin, setIsLogin, isDeveloper, setIsDeveloper, userinfo, setUserInfo, reports, setReports}}>
    
         {/* theme - mode */}
         <ThemeProvider theme = {theme}>

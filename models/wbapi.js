@@ -52,3 +52,58 @@ export const dataPages = () => {
   'year',
   'country')
 }
+
+
+//wbapi/reports get all reports
+export const reports = () => {
+  return db('reports')
+  .select('report_id',	'report',	'title',	'short',	'description', 'link')
+}
+
+//wbapi/reports get all users reports (is display or not)
+export const allusersreports = () => {
+  return db('usersreports')
+  .select('user_id', 'report_id', 'isdisplay')
+}
+
+// insert user report to usersreports
+export const insertUserReport = ({user_id, report_id}) => {
+  // console.log('name',name, 'price', price);
+  return db('usersreports')
+  .insert ({user_id, report_id})
+  .returning(['user_id', 'report_id', 'isdisplay'])
+}
+
+
+// delete user report from user report to usersreports
+
+export const deleteUserReport = ({user_id, report_id}) => {
+  return db('usersreports')
+  .where({user_id, report_id})
+  .del()
+  .returning(['user_id', 'report_id', 'isdisplay'])
+}
+
+//wbapi/alluserreportsisdispaly/:id get all user reports and is dispaly (is display or not)
+export const allUserReportsisDisplay = (user_id) => {
+  return db('reports')
+  .leftJoin('usersreports', function () {
+    this.on('reports.report_id', '=', 'usersreports.report_id')
+      .andOn('usersreports.user_id', '=', +user_id);
+  })
+  .select(
+    'reports.report_id',
+    'reports.report',
+    'reports.title',
+    'reports.short',
+    'reports.description',
+    'reports.link',
+    'usersreports.id AS user_report_id',
+    'usersreports.isdisplay',
+    'usersreports.user_id'
+  )
+  
+     
+}
+
+
