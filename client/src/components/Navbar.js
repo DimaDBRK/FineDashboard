@@ -32,7 +32,7 @@ const Navbar = ({
     const dispatch = useDispatch();
     const theme = useTheme();
     // status
-    const { isLogin, setIsLogin, isDeveloper, setIsDeveloper, userinfo, setUserInfo } = useContext(AppContext);
+    const { isLogin, setIsLogin, isDeveloper, setIsDeveloper, userinfo, setUserInfo, reports, setReports } = useContext(AppContext);
     //right button user info
     const [anchorEl, setAnchorEl] = useState(null);
     const isOpen = Boolean(anchorEl);
@@ -42,16 +42,17 @@ const Navbar = ({
     
 //  App logic
     const { token, setToken } = useContext(AppContext);
-
+  
     const navigate = useNavigate();
 
     const logout = async () => {
         try {
-            const res = await axios.delete(`/users/logout`);
+            const res = await axios.post(`/users/logout`, {user_id: userinfo.user_id, refreshToken: "new"});
             if (res.status === 200) {
             setToken(null);
             setIsLogin(false);
             setUserInfo({});
+            setIsDeveloper(false);
             navigate("/");
             }
         } catch(e) {

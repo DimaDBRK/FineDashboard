@@ -6,10 +6,10 @@ const u_router = express.Router();
 
 u_router.post("/register", _register);
 u_router.post('/login', _login);
-u_router.delete('/logout', _logout);
+u_router.post('/logout', _logout);
 u_router.get('/verify', verifyToken, (req, res) => {
     //we can create new token with new time and add
-    console.log("/verify");
+    console.log("/verify request");
     res.sendStatus(200);
 });
 

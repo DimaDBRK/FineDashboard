@@ -45,6 +45,7 @@ function App() {
   //user
 
   const [token, setToken] =  useState(null);
+  const [refreshToken, setRefreshToken] =  useState(null);
   const [isLogin, setIsLogin] =  useState(false);
   const [isDeveloper, setIsDeveloper] =  useState(false);
  //userinfo
@@ -56,7 +57,7 @@ function App() {
   return (
 
     <div className="app">
-      <AppContext.Provider value ={{ token, setToken, isLogin, setIsLogin, isDeveloper, setIsDeveloper, userinfo, setUserInfo, reports, setReports}}>
+      <AppContext.Provider value ={{ token, setToken, isLogin, setIsLogin, isDeveloper, setIsDeveloper, userinfo, setUserInfo, reports, setReports, refreshToken, setRefreshToken}}>
    
         {/* theme - mode */}
         <ThemeProvider theme = {theme}>
@@ -70,7 +71,12 @@ function App() {
               <Route path='/login' element={<LoginFine title='Login'/>}/>
               <Route path='/register' element={<RegisterFine title='Register'/>}/>
               <Route path='/developer' element={<Developer />}/>
-              <Route path='/users' element={<Users title='Users'/>}/>
+              {/* Protected route */}
+              <Route path='/users' element={
+                <Auth>
+                  <Users title='Users'/>
+                </Auth>
+                }/>
               <Route path='/geography' element={<Geography title='Geography'/>}/>
               <Route path='/population' element={<Population title='Population'/>}/>
               <Route path='/yearly' element={<Yearly title='Yearly'/>}/>

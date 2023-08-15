@@ -67,3 +67,72 @@ export const login = (email) => {
     return db('fineusers')
     .select('user_id','email','name', 'isdeveloper', 'last_login')
 }
+
+export const addUpdateRefreshToken = (user_id, refreshTokenNew) => {
+  db('userstokens')
+  .where('user_id', user_id)
+  .first()
+  .then((existingRow) => {
+    if (existingRow) {
+      // Row exists, update the refresh_token
+      return db('userstokens')
+        .where('user_id', user_id)
+        .update('refresh_token', refreshTokenNew);
+    } else {
+      // Row doesn't exist, insert a new row
+      return db('userstokens').insert({
+        user_id: user_id,
+        refresh_token: refreshTokenNew,
+      });
+    }
+  })
+  .then(() => {
+    console.log('Row(s) updated or inserted successfully');
+  })
+  .catch((error) => {
+    console.error('Error:', error);
+  })
+  // .finally(() => {
+  //   db.destroy();
+  // });
+
+};
+
+// delete token on logout
+
+// Delete the row with the specified user_id
+export const deleteRefreshToken = (user_id) => {
+  db('userstokens')
+    .where('user_id', user_id)
+    .del()
+    .then((numRowsDeleted) => {
+      if (numRowsDeleted > 0) {
+        console.log(`Deleted ${numRowsDeleted} row(s) successfully`);
+      } else {
+        console.log(`No rows deleted for user_id ${user_id}`);
+      }
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+    })
+  }
+
+  // get Refresh Token by user_id
+
+export const getRefreshToken = (user_id) => {   
+  db('userstokens')
+  .where('user_id', user_id)
+  .select('refresh_token')
+  .first()
+  .then((result) => {
+    if (result) {
+      const refresh_token = result.refresh_token;
+      console.log(`Refresh Token for user_id ${user_id}:`, refresh_token);
+    } else {
+      console.log(`No refresh token found for user_id ${user_id}`);
+    }
+  })
+  .catch((error) => {
+    console.error('Error:', error);
+  });
+}

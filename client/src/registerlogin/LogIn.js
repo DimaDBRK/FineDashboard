@@ -15,19 +15,21 @@ import Container from '@mui/material/Container';
 import { useTheme } from '@mui/material/styles';
 import { AppContext } from "../App";
 import axios from "axios";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const LogIn = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [msg, setMsg] = useState("");
   const {setToken} = useContext(AppContext);
+  const {setRefreshToken} =  useContext(AppContext);
   const { isLogin, setIsLogin } = useContext(AppContext);
   
   //theme
   const theme = useTheme();
 
   const navigate = useNavigate();
+  const location = useLocation();
   const handleClick = async (e) => {
     e.preventDefault();
     // -> Login
@@ -35,10 +37,15 @@ const LogIn = (props) => {
           const res = await axios.post(`/users/login`, { email, password });
           if (res.status === 200) {
               console.log(res.data);
+              // store refresh token to local storage
+              // localStorage.setItem('refreshToken', res.data.refreshToken);
+              
               setToken(res.data.token);
               setMsg("");
               setIsLogin(true);
-              navigate("/"); //to dashboard
+              const origin = location.state?.from?.pathname || '/';
+              console.log("origin=>", origin)
+              navigate(origin); //to origin or dashboard
           }
       } catch (err) {
       console.log(err);

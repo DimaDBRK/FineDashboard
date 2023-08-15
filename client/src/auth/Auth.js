@@ -1,7 +1,7 @@
 import { useEffect, useState, useContext } from "react";
 import axios from "axios";
 // import { verify } from "jsonwebtoken";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,  useLocation, Navigate} from "react-router-dom";
 import { AppContext } from "../App";
 
 
@@ -10,7 +10,7 @@ const Auth = (props) => {
     const { isLogin, setIsLogin } = useContext(AppContext);
 
     const [redirect, setRedirect] = useState(null);
-
+    const location = useLocation();
     const navigate = useNavigate();
 
 
@@ -24,21 +24,27 @@ const Auth = (props) => {
             //test
             console.log("check Token in Auth");
             console.log("res Status", res.status);
-            if (res.status === 200) return setRedirect(true);
+            if (res.status === 200) {
+                return setRedirect(true);
+            }
+            console.log("check Token false");
             setRedirect(false);
-            // setIsLogin(false);
-            // setToken(null);
-            navigate("/fine/login"); //to dashboard
+       
+            setIsLogin(false);
+            setToken(null);
+            // navigate("/fine/login"); //to dashboard
         } catch(e) {
             setRedirect(false);
-            // setIsLogin(false);
-            navigate("/fine/login"); //to dashboard
+            console.log("check Token false");
+            setIsLogin(false);
+            setToken(null);
+            navigate("/login", { state: { from: location }, replace: true }); //to dashboard
            
 
         }
     }
-
-    return redirect ? props.children : <p>Auth problem. Please Login</p>;
+    console.log("redirect auth res:", redirect)
+    return redirect ? props.children : <p>Problem with Auth</p>;
 };
 
 export default Auth;

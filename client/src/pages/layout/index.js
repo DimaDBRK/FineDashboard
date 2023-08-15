@@ -18,6 +18,7 @@ const Layout = () => {
     // const user = {name: "Albert", isDeveloper: true }
     const { isLogin, setIsLogin } = useContext(AppContext);
     const { token, setToken } = useContext(AppContext);
+    // const { refreshToken, setRefreshToken } = useContext(AppContext);
     const { userinfo, setUserInfo } = useContext(AppContext);
     const { isDeveloper, setIsDeveloper } = useContext(AppContext);
     // const [name, setUsername] = useState("");
@@ -29,7 +30,14 @@ const Layout = () => {
             setUserInfo(info);
             setIsDeveloper(info.isdeveloper);
             console.log("userinfo from token=>", info);
-        }
+        } 
+        // else if (refreshToken) {
+        //     const payload = jwt_token(refreshToken);
+        //     const info = payload.userinfo;
+        //     setUserInfo(info);
+        //     setIsDeveloper(info.isdeveloper);
+        //     console.log("userinfo from refreshToken=>", info);
+        // }
     },[token]);
 
   return (
