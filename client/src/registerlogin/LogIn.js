@@ -38,7 +38,7 @@ const LogIn = (props) => {
           if (res.status === 200) {
               console.log(res.data);
               // store refresh token to local storage
-              // localStorage.setItem('refreshToken', res.data.refreshToken);
+              localStorage.setItem('refreshToken', res.data.refreshToken);
               
               setToken(res.data.token);
               setMsg("");

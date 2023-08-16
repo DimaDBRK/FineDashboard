@@ -12,7 +12,21 @@ export const login = (email) => {
         "fineusers.isdeveloper",
       )
       .where({ 'finelogins.email': email });
-  };
+};
+
+export const userInfoByUserId = (user_id) => {
+  return db("finelogins")
+    .join("fineusers", { "fineusers.email": "finelogins.email" })
+    .select(
+      "finelogins.password",
+      "finelogins.login_id",
+      "fineusers.user_id",
+      "fineusers.name",
+      "fineusers.email",
+      "fineusers.isdeveloper",
+    )
+    .where({ 'fineusers.user_id': user_id });
+};
   
   export const updateLastLogin = (email) => {
     return db("fineusers").update({ last_login: new Date() }).where({ email });
@@ -136,3 +150,24 @@ export const getRefreshToken = (user_id) => {
     console.error('Error:', error);
   });
 }
+
+  // get user_id by Refresh Token 
+
+  export const getUserIdByRefreshToken = (refreshToken) => {   
+    return db('userstokens')
+    .select('user_id')
+    .where({'refresh_token' : refreshToken})
+    .first()
+    // .then((result) => {
+    //   if (result) {
+    //     const user_id = result.user_id;
+    //     console.log(`User Id for refreshToken :`, user_id);
+    //   } else {
+    //     console.log(`No User Id found for refreshToken...`);
+    //   }
+    // })
+    // .catch((error) => {
+    //   console.error('Error:', error);
+    // });
+   
+  }

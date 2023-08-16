@@ -20,6 +20,8 @@ import { AppContext } from "App";
 import { useNavigate } from "react-router-dom";
 import jwt_token from 'jwt-decode';
 import axios from "axios";
+import MenuOpenOutlinedIcon from '@mui/icons-material/MenuOpenOutlined';
+import DashboardOutlinedIcon from '@mui/icons-material/DashboardOutlined';
 
 import { logoutClearInfo } from 'helpers/logoutClearInfo';
 
@@ -47,12 +49,14 @@ const Navbar = ({
 
     const logout = async () => {
         try {
-            const res = await axios.post(`/users/logout`, {user_id: userinfo.user_id, refreshToken: "new"});
+            const res = await axios.post(`/users/logout`, {user_id: userinfo.user_id, refreshToken: ""});
             if (res.status === 200) {
             setToken(null);
             setIsLogin(false);
             setUserInfo({});
             setIsDeveloper(false);
+            // delete from local storage
+            localStorage.removeItem('refreshToken');
             navigate("/");
             }
         } catch(e) {
@@ -96,7 +100,7 @@ const Navbar = ({
                 )}
                 {isLogin && (
                 <IconButton onClick={()=>{setIsSidebarOpen(!isSidebarOpen)}}>
-                    <CompareArrowsOutlinedIcon />
+                    <MenuOpenOutlinedIcon />
                 </IconButton>
                 )}
 
@@ -107,9 +111,9 @@ const Navbar = ({
                         </Button>
                     )}  
                   {/* settings icon */}
-                  {isDeveloper && (
+                  {isLogin && (
                 <IconButton>
-                    <SettingsOutlined sx={{ fontSize: "25px" }} onClick={()=>{navigate("/developer")}}/>
+                    <DashboardOutlinedIcon sx={{ fontSize: "25px" }} onClick={()=>{navigate("/dashboard")}}/>
                 </IconButton>
                 )}            
             </FlexBetween>

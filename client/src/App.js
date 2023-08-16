@@ -9,6 +9,7 @@ import jwt_token from 'jwt-decode';
 
 //components
 import Dashboard from 'pages/dashboard';
+import Reports from 'pages/reports';
 import Layout from 'pages/layout';
 import Developer from 'pages/developer';
 import Users from 'pages/users'
@@ -45,7 +46,7 @@ function App() {
   //user
 
   const [token, setToken] =  useState(null);
-  const [refreshToken, setRefreshToken] =  useState(null);
+  const [refreshToken, setRefreshToken] =  useState(localStorage.getItem("refreshToken"));
   const [isLogin, setIsLogin] =  useState(false);
   const [isDeveloper, setIsDeveloper] =  useState(false);
  //userinfo
@@ -70,7 +71,12 @@ function App() {
               <Route path='/dashboard' element={<Dashboard />}/>
               <Route path='/login' element={<LoginFine title='Login'/>}/>
               <Route path='/register' element={<RegisterFine title='Register'/>}/>
-              <Route path='/developer' element={<Developer />}/>
+              <Route path='/developer' element={
+                <Auth>
+                  <Developer title='Developer'/>
+                </Auth>
+              }/>
+              <Route path='/reports' element={<Reports />}/>
               {/* Protected route */}
               <Route path='/users' element={
                 <Auth>

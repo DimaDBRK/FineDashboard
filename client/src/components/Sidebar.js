@@ -13,21 +13,26 @@ import {
     useTheme
 } from "@mui/material";
 import {
-    SettingsOutlined,
+   
     ChevronLeft,
     ChevronRightOutlined,
-    HomeOutlined,
-    ShoppingCartOutlined,
+  
     Groups2Outlined,
-    ReceiptLongOutlined,
+ 
     PublicOutlined,
-    PointOfSaleOutlined,
-    TodayOutlined,
-    CalendarMonthOutlined,
-    AdminPanelSettingsOutlined,
-    TrendingUpOutlined,
-    PieChartOutlined
+ 
+
+ 
+    
 } from "@mui/icons-material"
+import DashboardOutlinedIcon from '@mui/icons-material/DashboardOutlined';
+import TableViewOutlinedIcon from '@mui/icons-material/TableViewOutlined';
+import InsightsOutlinedIcon from '@mui/icons-material/InsightsOutlined';
+import DonutSmallOutlinedIcon from '@mui/icons-material/DonutSmallOutlined';
+import ManageAccountsOutlinedIcon from '@mui/icons-material/ManageAccountsOutlined';
+import TuneOutlinedIcon from '@mui/icons-material/TuneOutlined';
+import MiscellaneousServicesOutlinedIcon from '@mui/icons-material/MiscellaneousServicesOutlined';
+
 import { useEffect, useState, useContext} from 'react';
 import { useLocation, useNavigate } from "react-router-dom";
 import FlexBetween from 'components/FlexBetween';
@@ -39,47 +44,15 @@ import axios from "axios";
 //Items of Left side Menu
 
 const sideIcons ={
-    "Data": <ReceiptLongOutlined />,
+    "Data": <TableViewOutlinedIcon />,
     "Geography": <PublicOutlined />,
-    "Population": <PointOfSaleOutlined />,
-    "Yearly": <TodayOutlined />,
-    "Birth": <CalendarMonthOutlined />,
-    "Education": <PieChartOutlined />,
+    "Population": <InsightsOutlinedIcon />,
+    "Yearly": <InsightsOutlinedIcon />,
+    "Birth": <DonutSmallOutlinedIcon />,
+    "Education": <InsightsOutlinedIcon />,
 }
 
 
-const navItems = [
- 
-    {
-        text: "Data",
-        icon: <ReceiptLongOutlined />,
-        link: ""
-    },
-    {
-        text: "Geography",
-        icon: <PublicOutlined />,
-        link: ""
-    },
-    {
-        text: "Population",
-        icon: <PointOfSaleOutlined />,
-        link: ""
-    },
-    {
-        text: "Yearly",
-        icon: <TodayOutlined />,
-        link: ""
-    },
-    {
-        text: "Birth",
-        icon: <CalendarMonthOutlined />,
-        link: ""
-    },
-    {
-        text: "Education",
-        icon: <PieChartOutlined />,
-        link: ""
-    }]
 
 
 const navDeveloper = [
@@ -90,17 +63,22 @@ const navDeveloper = [
     },
     {
         text: "Developer",
-        icon: <AdminPanelSettingsOutlined/>,
+        icon: <MiscellaneousServicesOutlinedIcon/>,
+        link: ""
+    },
+]
+
+const navSettings = [
+    {
+        text: "Reports",
+        icon: <TuneOutlinedIcon />,
         link: ""
     },
     {
         text: "Profile",
-        icon: <TrendingUpOutlined/>,
+        icon: <ManageAccountsOutlinedIcon/>,
         link: ""
     },
-
-
-
 ]
 
 const Sidebar = ({
@@ -136,19 +114,6 @@ const Sidebar = ({
         setNavReports(temp);
         console.log("navReports", navReports)
       }, [reports])
-
-    // const getReports = async () =>{
-     
-    //     try {
-    //         const res = await axios.get(`/wbapi/alluserreportsisdispaly/${userinfo.user_id}`);
-    //         console.log('res=>',res.data);
-    //         setReports(res.data);
-           
-    //     }catch (err) {
-    //         setMsg(err.response.data.msg);
-    //         console.log(err.response.data.msg);
-    //     }
-    //   }
 
   return (
     <Box component="nav">
@@ -203,7 +168,7 @@ const Sidebar = ({
                                         color: active === "dashboard" ? theme.palette.primary[600] : theme.palette.secondary[200]
                                     }}
                                     >
-                                        <HomeOutlined/>
+                                        <DashboardOutlinedIcon/>
                                     </ListItemIcon>
                                     <ListItemText primary={"Dashboard"}/>
                                         {active === "dashboard" && (
@@ -211,7 +176,7 @@ const Sidebar = ({
                                         )}
                             </ListItemButton>
                         </ListItem>
-                        {/* Reports */}
+                        {/* My Reports */}
                         <Typography key={"Reports"} fontWeight="bold" sx={{ m: "1rem 0 1rem 2rem"}}>
                             My reports
                         </Typography> 
@@ -252,10 +217,55 @@ const Sidebar = ({
                             })
                         )}
 
+                         {/* Settings */}
+                         <Typography key={"Settings"} fontWeight="bold" sx={{ m: "1rem 0 1rem 2rem"}}>
+                            Settings
+                        </Typography> 
+                        { isLogin && (
+                            navSettings.map(({text, icon, link})=>{
+                                if (!icon) {
+                                    return (
+                                    <Typography key={text} fontWeight="bold" sx={{ m: "1rem 0 1rem 2rem"}}>
+                                        {text}
+                                    </Typography> 
+                                    ) 
+                                }
+                                
+                                const lcText = text.toLowerCase();
+                                return (
+                                    <ListItem key={text} disablePadding>
+                                        <ListItemButton
+                                            onClick={()=>{ 
+                                                navigate(`/${lcText}`);
+                                                setActive(lcText);
+                                            }}
+                                            sx={{
+                                                backgroundColor: active === lcText ? theme.palette.secondary[300] : "transparent",
+                                                color: active === lcText ? theme.palette.primary[600] : theme.palette.secondary[100]
+                                            }}
+                                            >
+                                                <ListItemIcon
+                                                    sx={{ml: "0.5rem",
+                                                    color: active === lcText ? theme.palette.primary[600] : theme.palette.secondary[200]
+                                                }}
+                                                >
+                                                    {icon}
+                                                </ListItemIcon>
+                                                <ListItemText primary={text}/>
+                                                    {active === lcText && (
+                                                        <ChevronRightOutlined sx={{ ml:"auto" }} />
+                                                    )}
+
+                                         
+                                        </ListItemButton>
+                                    </ListItem>
+                                );
+                            })
+                        )}
                         {/* Developer */}
                         { isDeveloper && (
                         <Typography key={"Developer settings"} fontWeight="bold" sx={{ m: "1rem 0 1rem 2rem"}}>
-                            {"Developer settings"}
+                            Developer settings
                         </Typography> 
                         )
                         }
@@ -305,41 +315,7 @@ const Sidebar = ({
 
                     </List>
                 </Box>
-                {/* <Box position="absolute" bottom="2rem">
-                    <Divider />
-                    <FlexBetween textTransform="none" gap="1rem" m="1.5rem 2rem 0 3rem">
-                    <Box
-                        component="img"
-                        alt="profile"
-                        src={profileImage}
-                        height="40px"
-                        width="40px"
-                        borderRadius="50%"
-                        sx={{ objectFit: "cover" }}
-                    />
-                    <Box textAlign="left">
-                        <Typography
-                        fontWeight="bold"
-                        fontSize="0.9rem"
-                        sx={{ color: theme.palette.secondary[100] }}
-                        >
-                        {user.name}
-                        </Typography>
-                        <Typography
-                        fontSize="0.8rem"
-                        sx={{ color: theme.palette.secondary[200] }}
-                        >
-                        {user.occupation}
-                        </Typography>
-                    </Box>
-                    <SettingsOutlined
-                        sx={{
-                        color: theme.palette.secondary[300],
-                        fontSize: "25px ",
-                        }}
-                    />
-                    </FlexBetween>
-                </Box> */}
+             
             </Drawer>
         )}
     </Box>

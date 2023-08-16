@@ -272,7 +272,7 @@ export const _reports = async (req, res) => {
     //wbapi/alluserreportsisdispaly/:id get all user reports and is dispaly (is display or not)
     //  _allUserReportsisDisplay
     export const _allUserReportsisDisplay = (req, res) => {
-      // console.log("all params=>", req);
+      console.log("all params=>", req.params);
       allUserReportsisDisplay(req.params.user_id)
         .then((data) => {
           res.json(data);
