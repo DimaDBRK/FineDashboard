@@ -1,5 +1,14 @@
 import express from "express";
-import { _register, _login, _users, _logout, _getUserInfoById, _updateUserInfoById, _deleteProfile } from "../controllers/users.js";
+import { 
+    _register, 
+    _login, 
+    _users, 
+    _logout, 
+    _getUserInfoById, 
+    _updateUserInfoById, 
+    _deleteProfile, 
+    _deleteRefreshToken 
+} from "../controllers/users.js";
 import { verifyToken } from '../middleware/VerifyToken.js';
 import { refreshToken } from '../middleware/RefreshToken.js';
 
@@ -25,7 +34,10 @@ u_router.get('/user/:user_id',  _getUserInfoById);
 u_router.put('/user/:user_id', verifyToken,  _updateUserInfoById);
 
 // delete user
-
 u_router.post('/user/deleteprofile', verifyToken,  _deleteProfile);
+
+
+//delete refresh tokens for user by id
+u_router.post('/user/deleterefreshtoken', verifyToken,  _deleteRefreshToken);
 
 export default u_router;

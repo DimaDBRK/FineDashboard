@@ -148,7 +148,7 @@ const Report = ({
 
 
 
-const Dashboard = () => {
+const Dashboard = (props) => {
   const theme = useTheme();
   const [msg, setMsg] = useState('');
   const isNonMobile = useMediaQuery("(min-width: 1000px)");
@@ -158,7 +158,11 @@ const Dashboard = () => {
   // const { isLogin, setIsLogin, isDeveloper, setIsDeveloper, userinfo, setUserInfo } = useContext(AppContext);
   const { isLogin, setIsLogin, isDeveloper, setIsDeveloper, userinfo, setUserInfo, reports, setReports } = useContext(AppContext);
   // get info
-
+ //web page title for browser
+const title = props.title;
+  useEffect(() => {
+  document.title = title;
+},[]);
 
 useEffect(()=>{
   getReports();

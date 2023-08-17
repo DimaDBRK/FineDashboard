@@ -69,7 +69,7 @@ function App() {
               {isLogin ? (<Route path='/' element={<Navigate to="/dashboard" replace/>}/>)
               :(<Route path='/' element={<Home/>}/>)
               }
-              <Route path='/dashboard' element={<Dashboard />}/>
+              <Route path='/dashboard' element={<Dashboard title='Dashboard'/>}/>
               <Route path='/login' element={<LoginFine title='Login'/>}/>
               <Route path='/register' element={<RegisterFine title='Register'/>}/>
               <Route path='/developer' element={
@@ -77,7 +77,7 @@ function App() {
                   <Developer title='Developer'/>
                 </Auth>
               }/>
-              <Route path='/reports' element={<Reports />}/>
+              <Route path='/reports' element={<Reports title='Reports'/>}/>
               {/* Protected route */}
               <Route path='/users' element={
                 <Auth>

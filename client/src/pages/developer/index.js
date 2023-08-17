@@ -14,6 +14,14 @@ import { testData } from "helpers/testWbApi";
         const [email, setEmail] = useState("");
         const [id, setId] = useState("");
         const { token } = useContext(AppContext);
+        
+        //web page title for browser
+        const title = props.title;
+        useEffect(() => {
+        document.title = title;
+        },[]);
+        // get info
+
 
         useEffect(()=>{
             if (token) {
@@ -22,7 +30,7 @@ import { testData } from "helpers/testWbApi";
                 setEmail(payload.userinfo.email);
                 setId(payload.userinfo.user_id);
             }
-        },[]);
+        },[token]);
 
 
 
@@ -33,7 +41,7 @@ import { testData } from "helpers/testWbApi";
           
             <h2>Test data:</h2>
                 <div>
-                    <p>My token: {token}</p>
+                    <p>My first token: {token}</p>
                 </div>
         
             {/* <Users/> */}

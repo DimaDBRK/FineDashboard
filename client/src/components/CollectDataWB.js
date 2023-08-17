@@ -30,7 +30,7 @@ return(
           2. Data Collection 
       </Typography>
     </FlexBetween>
-    <Button variant="contained" size="large" endIcon={<LoginIcon />} onClick={testData}>Test Data</Button>
+    <Button variant="contained" size="large" endIcon={<LoginIcon />} onClick={()=>{testData()}}>Test Data</Button>
   </Box>
 )
 }

@@ -9,12 +9,17 @@ import { AppContext } from "App";
 import axios from "axios";
 import FlexBetween from 'components/FlexBetween';
 
-const Geography = () => {
+const Geography = (props) => {
   const theme = useTheme();
   
   //get data
   const [countryData, setCountryData] = useState([]);
   const [msg, setMsg] = useState('');
+   //web page title for browser
+  const title = props.title;
+  useEffect(() => {
+    document.title = title;
+  },[]);
 
   useEffect(()=>{
     getCountryGeoData();

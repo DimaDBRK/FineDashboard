@@ -18,7 +18,7 @@ import LoginIcon from '@mui/icons-material/Login';
 import { yearCalendarClasses } from "@mui/x-date-pickers";
 import { ResponsiveRadialBar } from '@nivo/radial-bar'
 
-const Birth = () => {
+const Birth = (props) => {
   const [view, setView] = useState("birth_rate");
   const [years, setYears] = useState([2022,1960]);
   const [countries, setCountries] = useState([]);
@@ -33,6 +33,13 @@ const Birth = () => {
   const [data, setData] = useState([]);
   const [newData, setNewData] = useState([]);
   const [msg, setMsg] = useState('');
+
+  //web page title for browser
+  const title = props.title;
+  useEffect(() => {
+    document.title = title;
+    },[]);
+
 
   const formatData =(data) => {
     const newData = [];

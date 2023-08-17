@@ -48,8 +48,8 @@ const Home = (props) => {
                     justifyContent="center"
                 >
                     {!isLogin ?     
-                    <Button variant="contained" size="large" endIcon={<LoginIcon />} component={Link} to='/login'>Login</Button>
-                    : <Button variant="contained" size="large" endIcon={<DashboardIcon />} component={Link} to='/dashboard'>Dashboard</Button>
+                    <Button variant="contained" color="secondary" size="large" endIcon={<LoginIcon />} component={Link} to='/login'>Login</Button>
+                    : <Button variant="contained" color="secondary" size="large" endIcon={<DashboardIcon />} component={Link} to='/dashboard'>Dashboard</Button>
                     }
                     </Stack>
             </Container>
@@ -76,8 +76,8 @@ const Home = (props) => {
                     spacing={2}
                     justifyContent="center"
                 >
-                    <Button variant="contained" color="secondary" size="large">Demo</Button>
-                    <Button variant="contained" size="large" endIcon={<LoginIcon />} component={Link} to='/register'>Register</Button>
+                    {/* <Button variant="contained" color="secondary" size="large">Demo</Button> */}
+                    <Button variant="contained"  size="large" endIcon={<LoginIcon />} component={Link} to='/register'>Register</Button>
                 </Stack>
                 )}
             </Container>

@@ -31,6 +31,7 @@ const Report = ({
   // setReports,
   msg, 
   setMsg
+  
 
 }) => {
   const theme = useTheme();
@@ -38,6 +39,7 @@ const Report = ({
   const navigate = useNavigate();
   const { isLogin, setIsLogin, isDeveloper, setIsDeveloper, userinfo, setUserInfo, reports, setReports } = useContext(AppContext);
   
+
   const  deleteReportFromList = async () =>{
      
     try {
@@ -169,7 +171,7 @@ const Report = ({
 
 
 
-const Reports = () => {
+const Reports = (props) => {
   const theme = useTheme();
   const [msg, setMsg] = useState('');
   const isNonMobile = useMediaQuery("(min-width: 1000px)");
@@ -178,7 +180,13 @@ const Reports = () => {
   const navigate = useNavigate();
   // const { isLogin, setIsLogin, isDeveloper, setIsDeveloper, userinfo, setUserInfo } = useContext(AppContext);
   const { isLogin, setIsLogin, isDeveloper, setIsDeveloper, userinfo, setUserInfo, reports, setReports } = useContext(AppContext);
-  // get info
+  
+  //web page title for browser
+  const title = props.title;
+  useEffect(() => {
+    document.title = title;
+  },[]);
+// get info
 
 
 useEffect(()=>{

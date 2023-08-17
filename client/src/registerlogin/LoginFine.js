@@ -24,9 +24,11 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useTheme } from '@mui/material';
 
 const LoginFine = (props) => {
-   const title = props.title;
+   
    const theme = useTheme();
+   
    //web page title for browser
+   const title = props.title;
    useEffect(() => {
     document.title = title;
     }, []);

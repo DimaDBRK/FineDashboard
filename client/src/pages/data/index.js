@@ -6,7 +6,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import FlexBetween from 'components/FlexBetween';
 
-const Data = () => {
+const Data = (props) => {
   const theme = useTheme();
   
   //get data
@@ -23,6 +23,12 @@ const Data = () => {
   const [sort, setSort] = useState({});
   const [search, setSearch] = useState("");
 
+  //web page title for browser
+  const title = props.title;
+  useEffect(() => {
+    document.title = title;
+  },[]);
+  
   useEffect(()=>{
       getUsers();
       console.log('res=>',data);

@@ -188,3 +188,36 @@ export const _deleteProfile= async (req, res) => {
       return res.status(404).json({ msg: "something went wrong" });
     }
 };
+
+// _deleteRefreshToken
+export const _deleteRefreshToken= async (req, res) => {
+  const { email, password, id } = req.body;
+  // token life time
+  const acsessTokenExpiresIn = process.env.ACCESS_TOKEN_EXPIRES_IN;
+
+  try {
+    // try to get password with username
+    const userinfo = await login(email);
+
+    // if username does not exist
+    if (userinfo.length === 0)
+      return res.status(404).json({ msg: "email not found" });
+
+    // check password
+    const match = bcrypt.compareSync(password + "", userinfo[0].password);
+
+    // if password not match
+    if (!match) return res.status(401).json({ msg: "wrong password" });
+
+    // delete refresh token
+    deleteRefreshToken(id);
+    
+    
+    res.json({ msg: `Refresh token for ID ${id} deleted`});
+
+} catch (err) {
+    console.log(err);
+    return res.status(404).json({ msg: "something went wrong" });
+  }
+};
+

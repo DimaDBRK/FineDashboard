@@ -23,7 +23,12 @@ const Profile = (props) => {
     const [password, setPassword] = useState("");
     const [isDeleteAlert, setIsDeleteAlert] = useState(false);
     const [confirmDelete, setConfirmDelete] = useState(false);
-    
+    //web page title for browser
+    const title = props.title;
+    useEffect(() => {
+      document.title = title;
+    },[]);
+// get info
     //theme
     const theme = useTheme();
   
@@ -95,19 +100,7 @@ const Profile = (props) => {
             setMsg(err.response.data.msg); // to show in the same part
             }
         } else { return}
-        // try {
-        //     const res = await axios.put(`/users/user/${id}`, {name, isdeveloper: profileIsDeveloper});
-        //     if (res.status === 200) {
-        //         console.log(res.data);
-        //         // setName(res.data.name);
-        //         // setProfileIsDeveloper(res.data.isdeveloper);
-        //         // setMsg("");
-            
-        //     }
-        // } catch (err) {
-        // console.log(err);
-        // setMsg(err.response.data.msg); // to show in the same part
-        // }
+   
     }
 
 
@@ -160,22 +153,26 @@ const Profile = (props) => {
           <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
             <LockOutlinedIcon />
           </Avatar>
-          <Grid container spacing={2}>
-            <Grid item xs={12}>
+          {/* <Grid container spacing={2}>
+            <Grid item xs={12}> */}
                 <Typography>
                     User ID: {id}
                 </Typography> 
-            </Grid>
-            <Grid item xs={12}>
+            {/* </Grid>
+            <Grid item xs={12}> */}
                 <Typography>
                     E-mail: {email}
                 </Typography> 
-            </Grid>
-          </Grid>
+            {/* </Grid>
+          </Grid> */}
           {/* Change name */}
           <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
             <LockOpenOutlinedIcon />
           </Avatar>
+          <Typography variant="h5">
+            Change Name and Role
+          </Typography>
+          { email != "demo@demo.com" ? (
            <Box component="form" noValidate sx={{ mt: 3 }}>
             <Grid container spacing={2}>
               
@@ -211,7 +208,13 @@ const Profile = (props) => {
             </Button>
             
           </Box>     
-
+          )
+        : (
+          <Typography>
+                Register to use this functions
+          </Typography> 
+        )
+        }
            {/* Delete user */}
            <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
             <LockOpenOutlinedIcon />
@@ -222,7 +225,7 @@ const Profile = (props) => {
              
               
               <Grid item xs={12}>
-                <Typography>
+                <Typography variant="h5">
                   Delete account  
                 </Typography>
               </Grid>
@@ -258,6 +261,7 @@ const Profile = (props) => {
             </Button>
               </Grid>
             )}
+            {email != "demo@demo.com" ? (
             <Button
               
               fullWidth
@@ -267,7 +271,12 @@ const Profile = (props) => {
             >
               Delete account
             </Button>
-            
+            ) : (
+              <Typography>
+                    Register to use this functions
+              </Typography> 
+            )
+          }
           </Box>          
 
         </Box>

@@ -53,6 +53,29 @@ const LogIn = (props) => {
       }
 }
 
+const demo = async () => {
+
+  // -> Login
+    try {
+        const res = await axios.post(`/users/login`, { email: "demo@demo.com", password: 123 });
+        if (res.status === 200) {
+            console.log(res.data);
+            // store refresh token to local storage
+            localStorage.setItem('refreshToken', res.data.refreshToken);
+            
+            setToken(res.data.token);
+            setMsg("");
+            setIsLogin(true);
+            const origin = location.state?.from?.pathname || '/';
+            console.log("origin=>", origin)
+            navigate(origin); //to origin or dashboard
+        }
+    } catch (err) {
+    console.log(err);
+    setMsg(err.response.data.msg); // to show in the same part
+    }
+}
+
 
 
   return (
@@ -72,6 +95,15 @@ const LogIn = (props) => {
            <Typography component="p" variant="h6">
             {msg}
           </Typography>
+          <Button
+            variant="contained"
+            sx={{ mt: 5, mb: 2 }}
+            color="secondary"
+            onClick={()=>{demo(); console.log("Demo")}}
+            >
+              Demo
+            </Button> 
+               
           <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
             <LockOutlinedIcon />
           </Avatar>
@@ -123,14 +155,7 @@ const LogIn = (props) => {
               </Grid>
             </Grid>
           </Box> 
-          <Button
-            variant="contained"
-            sx={{ mt: 5, mb: 2 }}
-            onClick={()=>{console.log("Demo")}}
-            >
-              Demo
-            </Button> 
-               
+       
         </Box>
 
   );

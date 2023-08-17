@@ -9,9 +9,16 @@ import axios from "axios";
 import FlexBetween from 'components/FlexBetween';
 import PopulationChart from "components/PopulationChart";
 
-const Population = () => {
-  const [view, setView] = useState("total_population");
 
+
+const Population = (props) => {
+  const [view, setView] = useState("total_population");
+  //web page title for browser
+  const title = props.title;
+  useEffect(() => {
+    document.title = title;
+  },[]);
+  
   return (
     <Box m="1.5rem 2.5rem">
       <Header

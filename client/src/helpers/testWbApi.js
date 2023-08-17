@@ -69,7 +69,7 @@ const toYear= 2022;
 
 export const testData = () => {
   console.log("Test data start");
-  
+  const print= [];
   // arr of years
   const range = (start, stop, step) => Array.from({ length: (stop - start) / step + 1}, (_, i) => start + (i * step));
   // transpose matrix
@@ -158,6 +158,7 @@ export const testData = () => {
 
   const result = transpose(dataList[0]);
   console.log(countryName, "data collection finish", result);
+  print.push(`${country} data collection finish, rows: ${result.length}`)
   return result;
 
 }
@@ -185,5 +186,8 @@ export const testData = () => {
 countryList.map(country=>{
   console.log(country, "data collection start");
   getJsonData(country);
+
 })
+
+return print;
 }
