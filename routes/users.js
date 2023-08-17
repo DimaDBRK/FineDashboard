@@ -1,5 +1,5 @@
 import express from "express";
-import { _register, _login, _users, _logout } from "../controllers/users.js";
+import { _register, _login, _users, _logout, _getUserInfoById, _updateUserInfoById, _deleteProfile } from "../controllers/users.js";
 import { verifyToken } from '../middleware/VerifyToken.js';
 import { refreshToken } from '../middleware/RefreshToken.js';
 
@@ -18,6 +18,14 @@ u_router.post('/refresh', refreshToken);
 
 
 // get all users only if verify - 
-u_router.get('/users',  verifyToken, _users);
+u_router.get('/users', verifyToken, _users);
+
+// get user info by user id only if verify - 
+u_router.get('/user/:user_id',  _getUserInfoById);
+u_router.put('/user/:user_id', verifyToken,  _updateUserInfoById);
+
+// delete user
+
+u_router.post('/user/deleteprofile', verifyToken,  _deleteProfile);
 
 export default u_router;

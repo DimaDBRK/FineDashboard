@@ -9,6 +9,7 @@ import jwt_token from 'jwt-decode';
 
 //components
 import Dashboard from 'pages/dashboard';
+import Profile from 'pages/profile';
 import Reports from 'pages/reports';
 import Layout from 'pages/layout';
 import Developer from 'pages/developer';
@@ -81,6 +82,11 @@ function App() {
               <Route path='/users' element={
                 <Auth>
                   <Users title='Users'/>
+                </Auth>
+                }/>
+                 <Route path='/profile' element={
+                <Auth>
+                  <Profile title='Profile'/>
                 </Auth>
                 }/>
               <Route path='/geography' element={<Geography title='Geography'/>}/>

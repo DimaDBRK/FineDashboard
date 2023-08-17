@@ -11,7 +11,7 @@ import LockOpenOutlinedIcon from '@mui/icons-material/LockOpenOutlined';
 
 import axios from "axios";
 
-const Profile = (props) => {
+const otherUserProfile = (props) => {
     
     const [msg, setMsg] = useState("");
     const { isLogin, setIsLogin, isDeveloper, setIsDeveloper, userinfo, setUserInfo, reports, setReports, setToken } = useContext(AppContext);
@@ -95,19 +95,7 @@ const Profile = (props) => {
             setMsg(err.response.data.msg); // to show in the same part
             }
         } else { return}
-        // try {
-        //     const res = await axios.put(`/users/user/${id}`, {name, isdeveloper: profileIsDeveloper});
-        //     if (res.status === 200) {
-        //         console.log(res.data);
-        //         // setName(res.data.name);
-        //         // setProfileIsDeveloper(res.data.isdeveloper);
-        //         // setMsg("");
-            
-        //     }
-        // } catch (err) {
-        // console.log(err);
-        // setMsg(err.response.data.msg); // to show in the same part
-        // }
+        
     }
 
 
@@ -120,15 +108,17 @@ const Profile = (props) => {
         //     console.log("payload=>", payload);
         //     setEmail(payload.userinfo.email);
         //     setId(payload.userinfo.user_id);
-        console.log("useEffect")
+        console.log("useEffect - 11");
+        getUserInfoById(11);
+        
         // }
     },[]);
 
 
 
     return(
-        <Box m="1.5rem 2.5rem">
-            <Header title="PROFILE" subtitle="Information" />
+      <Box m="1.5rem 2.5rem">
+            <Header title="OTHER USER PROFILE" subtitle="Information" />
             <Typography>
                 {msg}
             </Typography>
@@ -274,8 +264,8 @@ const Profile = (props) => {
       
                 
           
-        </Box>
+      </Box>
     )
 }
 
-export default Profile;
+export default deleteUserProfile;

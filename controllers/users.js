@@ -5,7 +5,10 @@ import {
   users, 
   addUpdateRefreshToken, 
   deleteRefreshToken,
-  getRefreshToken
+  getRefreshToken,
+  userInfoByUserId,
+  updateUserInfoById,
+  deleteUserProfile
  } from "../models/users.js";
 import bcrypt from "bcrypt";
 // tokens -> code in .env ACCESS_TOKEN_SECRET
@@ -118,3 +121,70 @@ export const _users = async (req, res) => {
         res.status(404).json({msg: 'something went wrong!'})
     }
 }
+
+// get user info by id
+export const _getUserInfoById = async (req, res) => {
+  console.log("all params=>", req.params);
+  userInfoByUserId(req.params.user_id)
+    .then((data) => {
+      const info = {...data[0], password:""};
+      res.json(info);
+    })
+    .catch((e) => {
+      console.log(e);
+      res.status(404).json({ msg: e.message });
+    });
+};
+
+
+//_updateUserInfoById
+export const _updateUserInfoById = async (req, res) => {
+  console.log("all params=>", req.params);
+  updateUserInfoById(req.body, req.params.user_id)
+    .then((data) => {
+      //email
+      // login email token
+      // const info = {...data[0], password:""};
+      
+      res.json(data[0]);
+    })
+    .catch((e) => {
+      console.log(e);
+      res.status(404).json({ msg: e.message });
+    });
+};
+
+
+// _deleteProfile
+export const _deleteProfile= async (req, res) => {
+  const { email, password } = req.body;
+    // token life time
+    const acsessTokenExpiresIn = process.env.ACCESS_TOKEN_EXPIRES_IN;
+
+    try {
+      // try to get password with username
+      const userinfo = await login(email);
+  
+      // if username does not exist
+      if (userinfo.length === 0)
+        return res.status(404).json({ msg: "email not found" });
+  
+      // check password
+      const match = bcrypt.compareSync(password + "", userinfo[0].password);
+  
+      // if password not match
+      if (!match) return res.status(401).json({ msg: "wrong password" });
+  
+      // delete refresh token
+      deleteRefreshToken(userinfo[0].user_id);
+      // delete user
+      const result = deleteUserProfile(userinfo[0].user_id);
+      console.log("controller delete result=>", result)
+      
+      res.json({ msg: `User profile for ID ${userinfo[0].user_id} deleted`});
+
+  } catch (err) {
+      console.log(err);
+      return res.status(404).json({ msg: "something went wrong" });
+    }
+};

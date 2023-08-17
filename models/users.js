@@ -171,3 +171,28 @@ export const getRefreshToken = (user_id) => {
     // });
    
   }
+
+  // updateUserInfoById
+  export const updateUserInfoById = ({name,isdeveloper}, user_id) => {
+    return db('fineusers')
+    .update({name,isdeveloper})
+    .where({user_id})
+    .returning(['email'])
+  }
+
+  // Delete user info by user_id
+export const deleteUserProfile = (user_id) => {
+  db('fineusers')
+    .where('user_id', user_id)
+    .del()
+    .then((numRowsDeleted) => {
+      if (numRowsDeleted > 0) {
+        console.log(`Deleted profile ${user_id} and ${numRowsDeleted} row(s) successfully`);
+      } else {
+        console.log(`No rows deleted for user_id ${user_id}`);
+      }
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+    })
+  }

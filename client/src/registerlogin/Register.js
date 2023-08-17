@@ -26,7 +26,7 @@ const Register = (props) => {
   const theme = useTheme();
 
   const navigate = useNavigate();
-    const handleClick = async (event) => {
+  const handleClick = async (event) => {
       event.preventDefault();
       // -> Register
         try {
@@ -41,7 +41,7 @@ const Register = (props) => {
         console.log(err);
         setMsg(err.response.data.msg); // to show in the same part
         }
-}
+  }
   
 
   return (

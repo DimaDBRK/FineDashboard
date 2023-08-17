@@ -195,7 +195,7 @@ const Navbar = ({
                     anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
                     >
                         <MenuItem onClick={()=>{handleClose(); logout()}}>Log Out</MenuItem>
-                        {isLogin && <MenuItem onClick={()=>{console.log("Profile"); handleClose();}}>Profile</MenuItem>}
+                        {isLogin && <MenuItem onClick={()=>{handleClose(); navigate("/profile")}}>Profile</MenuItem>}
                     </Menu>
                 </FlexBetween>
                 {/* end user info box */}

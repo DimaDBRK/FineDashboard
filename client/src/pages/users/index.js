@@ -36,6 +36,10 @@ const Users = () => {
       field: "user_id",
       headerName: "ID",
       flex: 0.3,
+      renderCell: (params) => {
+        return (
+      <Button variant="outlined" color="warning" size="small" onClick={()=>{console.log(params.value)}}>{params.value}</Button>
+        )}
     },
     {
       field: "name",
@@ -55,7 +59,7 @@ const Users = () => {
         return (
           <FlexBetween gap="10px">
           {params.value? <p>Developer</p> : <p>User</p>}
-          <Button variant="outlined" color="warning" size="small" >Edit</Button>
+          
          
           </FlexBetween>)
       }

@@ -13,10 +13,10 @@ const Auth = (props) => {
     const location = useLocation();
     const navigate = useNavigate();
 
-
+// update every time token used
     useEffect(()=> {
         verifyMyToken()
-    }, []);
+    });
 
     const verifyMyToken = async() => {
         try {
