@@ -245,9 +245,9 @@ const Profile = (props) => {
                   id="password"
                   label="password"
                   name="password"
-                  autoComplete="no"
                   required={true}
                   value={password}
+                  autoComplete='off'
                   onChange ={(e) => setPassword(e.target.value)}
                 />
               {/* </Grid> */}

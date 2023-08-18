@@ -106,4 +106,59 @@ export const allUserReportsisDisplay = (user_id) => {
      
 }
 
+// putLiveData
 
+
+export const putLiveData = async ({x, y}) => {
+  // const data = await  db('livedata')
+  // .insert({x, y},
+  //   ['id'])
+
+  // console.log("insert live data=>", data);
+// Check the quantity of rows in the table
+  const data = db('livedata')
+  .count('id as rowCount')
+  .first()
+  .then(({ rowCount }) => {
+    if (rowCount >= 10) {
+     
+      // Get the minimum id of the rows
+      return db('livedata')
+        .min('id as minId')
+        .first()
+        .then(({ minId }) => {
+          // Delete the row with the minimum id
+          return db('livedata')
+            .where('id', minId)
+            .del()
+            .then(() => {
+              // console.log('Row deleted');
+            });
+        });
+    }
+  })
+    .then(() => {
+      // Insert new data
+      return db('livedata').insert({x, y}, ['id']);
+    })
+    .then(() => {
+      // console.log('Data added successfully');
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+      return false;
+    })
+ 
+}
+
+ //get data for code
+ export const liveData = () => {
+  return db('livedata')
+  .select('id as x','y')
+}
+
+ //get data for code
+ export const clearLiveData = () => {
+  return db('livedata')
+  .del()
+}

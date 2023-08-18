@@ -21,6 +21,7 @@ import Birth from "pages/birth";
 import Income from "pages/education";
 import Education from "pages/education";
 import Data from "pages/data";
+import Live from "pages/live";
 //old
 
 import { Routes, Route } from 'react-router-dom';
@@ -95,6 +96,7 @@ function App() {
               <Route path='/birth' element={<Birth title='Birth'/>}/>
               <Route path='/education' element={<Education title='Education'/>}/>
               <Route path='/data' element={<Data title='Data'/>}/>
+              <Route path='/live' element={<Live title='Live Data'/>}/>
 
          
             </Route>

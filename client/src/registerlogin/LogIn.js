@@ -133,7 +133,7 @@ const demo = async () => {
                   label="Password"
                   type="password"
                   id="password"
-                  autoComplete="new-password"
+                  autoComplete='off'
                   onChange ={(e) => setPassword(e.target.value)}
                 />
               </Grid>

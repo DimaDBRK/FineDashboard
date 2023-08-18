@@ -5,10 +5,24 @@ import path from "path";
 import u_router from "./routes/users.js";
 import wbapi_router from "./routes/wbapi.js";
 import cookieParser from "cookie-parser";
+import cron from 'node-cron'
+import { putLiveData } from "./models/wbapi.js";
+import { GetLiveData } from "./helpers/GetLiveDataTest.js"
 
 import { fileURLToPath } from 'url';
 
 dotenv.config();
+
+// corn job config
+const cronExpression = '*/3 * * * * *';
+export const action = async () => {
+  const data = await GetLiveData();
+  // console.log(data);
+  putLiveData(data);
+  // console.log('This cron job will run every 5 seconds')
+}
+export const job = cron.schedule(cronExpression, action, {scheduled:false})
+// corn end
 
 const app = express();
 
@@ -27,6 +41,9 @@ app.use(cookieParser());
 
 app.use("/users", u_router);
 app.use("/wbapi", wbapi_router);
+
+
+
 
 app.listen(process.env.PORT, () => {
     console.log(`run on port ${process.env.PORT}`);

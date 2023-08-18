@@ -8,10 +8,15 @@ import {
   allusersreports,
   insertUserReport,
   deleteUserReport,
-  allUserReportsisDisplay
+  allUserReportsisDisplay,
+  putLiveData,
+  liveData,
+  clearLiveData
 } from "../models/wbapi.js";
-import {WbApiDataGet} from "../helpers/WbApiDataGet.js"
+import { WbApiDataGet } from "../helpers/WbApiDataGet.js"
+import { GetLiveData } from "../helpers/GetLiveDataTest.js"
 import { convertDataForChart } from "../helpers/convertDataForChart.js";
+import { job } from "../server.js"
 let counter = 0;
 
 const keys = ['total_population',
@@ -282,3 +287,70 @@ export const _reports = async (req, res) => {
           res.status(404).json({ msg: e.message });
         });
     };
+
+    //_cronJobData management
+    export const _cronJobData = async (req, res) => {
+      try {
+        const { command } = req.body;
+      
+        console.log("Cron Job data: command recived", command);
+        if (command ===  "start") {
+          console.log("start recived");
+          //corn
+          job.start();//starts the job
+          // stop in 5 min = 90000
+          setTimeout(function(){
+            console.log("corn job stop");
+            job.stop()//starts the job
+          }, 60000);
+
+
+          res.status(200).json({msg:'job started successfully'})
+          
+          
+        } else if (command === "stop") {
+          console.log("command stop");
+          //corn
+          job.stop()//starts the job
+          res.status(200).json({msg:'job stopped successfully'})
+        
+        }  else if (command === "clear") {
+          console.log("command clear");
+          //clear table
+          clearLiveData()
+          .then((data) => {
+            console.log("clear", data);
+            res.status(200).json({msg:'clear successfully'})
+            })
+            .catch((e) => {
+              console.log(e);
+              res.status(404).json({ msg: e.message });
+            });
+        
+
+        } else {
+          res.status(404).json({msg: 'wrong command!'})
+        }
+
+      } catch (err) {
+        console.log(err);
+        res.status(404).json({msg: 'something went wrong!'})
+      }
+    };
+    
+    // _liveData
+export const _liveData = async (req, res) => {
+  try {
+    const code = req.query.code;
+    console.log(code);
+    if (code === "livedata") {
+      const rows = await liveData(req.query.code);
+      res.json(rows); }
+    else {
+        res.status(401).json({msg: 'wrong data code!'})
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(404).json({msg: 'something went wrong!'})
+  }
+};

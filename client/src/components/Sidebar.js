@@ -32,6 +32,7 @@ import DonutSmallOutlinedIcon from '@mui/icons-material/DonutSmallOutlined';
 import ManageAccountsOutlinedIcon from '@mui/icons-material/ManageAccountsOutlined';
 import TuneOutlinedIcon from '@mui/icons-material/TuneOutlined';
 import MiscellaneousServicesOutlinedIcon from '@mui/icons-material/MiscellaneousServicesOutlined';
+import UpdateOutlinedIcon from '@mui/icons-material/UpdateOutlined';
 
 import { useEffect, useState, useContext} from 'react';
 import { useLocation, useNavigate } from "react-router-dom";
@@ -50,6 +51,8 @@ const sideIcons ={
     "Yearly": <InsightsOutlinedIcon />,
     "Birth": <DonutSmallOutlinedIcon />,
     "Education": <InsightsOutlinedIcon />,
+    "Live": <UpdateOutlinedIcon />,
+
 }
 
 

@@ -7,7 +7,9 @@ import {
   _allusersreports,
   _insertUserReport,
   _deleteUserReport,
-  _allUserReportsisDisplay
+  _allUserReportsisDisplay,
+  _cronJobData,
+  _liveData
 } from "../controllers/wbapi.js";
 import { verifyToken } from '../middleware/VerifyToken.js';
 
@@ -24,4 +26,6 @@ wbapi_router.get('/allusersreports', _allusersreports);
 wbapi_router.post("/allusersreports", verifyToken, _insertUserReport);
 wbapi_router.post("/deleteuserreport", verifyToken, _deleteUserReport);
 wbapi_router.get("/alluserreportsisdispaly/:user_id", _allUserReportsisDisplay);
+wbapi_router.post('/cornjobdata', _cronJobData);
+wbapi_router.get('/cornjobdata', _liveData);
 export default wbapi_router;
