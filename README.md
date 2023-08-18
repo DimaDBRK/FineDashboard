@@ -36,18 +36,19 @@ By prioritizing simplicity and efficiency, App empowers users with curated views
 World Bank  API has been selected for data collection : https://datahelpdesk.worldbank.org/knowledgebase/articles/889392-api-documentation
 The World Bank data consists of demographic and other statistical data related to Population, Employment, GDP, Energy Consumption, etc. for different the countries from the year 1960 to 2022. These categories are called indicators and are each defined by a code.
 Example of  indicators:
-SP.POP.TOTL - Total Population
-SP.DYN.CBRT.IN Birth Rate
-SE.COM.DURS - Compulsory Education Duration
-NY.GDP.MKTP.CD - GDP in USD
+* SP.POP.TOTL - Total Population
+* SP.DYN.CBRT.IN Birth Rate
+* SE.COM.DURS - Compulsory Education Duration
+* NY.GDP.MKTP.CD - GDP in USD
+
 The following countries have been chosen for data collection:
-US - United States of America
-IN - India
-CN - China
-JP - Japan
-CA - Canada
-GB - Great Britain
-ZA - South Africa
+* US - United States of America
+* IN - India
+* CN - China
+* JP - Japan
+* CA - Canada
+* GB - Great Britain
+* ZA - South Africa
 The base API URL is http://api.worldbank.org/v2/ and is followed by the country code and indicator code to obtain the data for each year. No authentication is required to use the API.
 
 Data Collection & Pre-processing : 
@@ -129,13 +130,13 @@ y real
 Node.js server.
 List of API’s:
 User
-post /users/register - register
-post users//users/login - logout
-pos users//logout - logout
-get users/users -  protected, all users
-get users/user/:user_id - get User Info By Id
-put users/users/user/:user_id -  protected, update User Info By Id
-post users/user/deleteprofile - protected, delete user profile
+* post /users/register - register
+* post users//users/login - logout
+* pos users//logout - logout
+* get users/users -  protected, all users
+* get users/user/:user_id - get User Info By Id
+* put users/users/user/:user_id -  protected, update User Info By Id
+* post users/user/deleteprofile - protected, delete user profile
 
 Tokens and Auth
 get  users/verify 
