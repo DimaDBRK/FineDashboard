@@ -175,7 +175,7 @@ The combination of MUI GridDataGrid and GridToolbar facilitates efficient manage
 Users have the capability to save preferences and manage their profiles, encompassing actions such as updating their username, deleting their profile, as well as adding and removing reports (views).
 
 Pages and main components.
-
+![Dashboard](dashboard.jpg)
 Side bar includes:
 * Dashboard - cards of reports
 * My reports - dynamically updated list of user reports
@@ -194,7 +194,7 @@ Nav bar:
 Token-based authentication employs two distinct tokens: the access token, stored in cookies with a short lifespan, and the refresh token, stored in both a dedicated database table and local storage, featuring a prolonged lifespan. A dedicated API facilitates token verification and updates upon the validation of the refresh token. JSON Web Token (JWT) serves as the foundation, utilizing JSON to craft access tokens, thereby enabling the utilization of application or API resources.
 
 Furthermore, the implementation of Protected Routes within React Router ensures that authorized access is maintained.
-
+![Users](users.jpg)
 ### User Roles and Permissions:
 The system delineates between two distinct user roles: User and Developer.
 Developers are endowed with specialized access privileges, encompassing features such as Database management on the Developer page, access to a comprehensive users list, and the capability to delete refresh tokens.
