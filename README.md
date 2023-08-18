@@ -9,7 +9,7 @@ Frontend: React and Material UI
 - Authentication System: JWT-based
 
 Live demo: https://fine-dashboard.onrender.com/
-
+![Chart](chart.jpg)
 ## Table of Contents
 
 - [Fine Dashboard](#fine-dashboard)
