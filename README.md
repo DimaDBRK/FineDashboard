@@ -3,7 +3,7 @@
 
 The application presents a diverse range of graphs derived from the data stored within the database. A robust authentication system is integrated to guarantee secure user entry to both data and functionalities. The Full Stack Fine Dashboard App exhibits data through dynamic charts and provides comprehensive user profile administration. The app's technology stack comprises:
 
-Frontend: React and Material UI
+- Frontend: React and Material UI
 - Backend: Node.js
 - Database: ElephantSQL
 - Authentication System: JWT-based
@@ -16,6 +16,7 @@ Live demo: https://fine-dashboard.onrender.com/
   - [Table of Contents](#table-of-contents)
   - [Description](#description)
   - [Data Identification](#data-identification)
+    - [Data Collection \& Pre-processing:](#data-collection--pre-processing)
   - [Database](#database)
   - [Backend and API](#backend-and-api)
   - [Frontend](#frontend)
@@ -50,9 +51,10 @@ The following countries have been chosen for data collection:
 * CA - Canada
 * GB - Great Britain
 * ZA - South Africa
+
 The base API URL is http://api.worldbank.org/v2/ and is followed by the country code and indicator code to obtain the data for each year. No authentication is required to use the API.
 
-Data Collection & Pre-processing : 
+### Data Collection & Pre-processing: 
 The aforementioned data is meticulously gathered through a loop of async API calls, subsequently subjected to preprocessing and parsing procedures, and stored within a dedicated table. This meticulous process ensures the organization and accessibility of the collected information for efficient utilization.
 
 
