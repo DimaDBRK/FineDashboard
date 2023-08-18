@@ -64,7 +64,7 @@ ElephantSQL automates every part of setup and running of PostgreSQL clusters.
 There are Tables:
 
 fineusers - user unformation
-create table fineusers ( 
+> create table fineusers ( 
 user_id serial not null primary key, 
 name varchar(255), 
 email varchar(255) not null unique,
@@ -73,14 +73,14 @@ create_date date not null default current_date,
 last_login date not null )
 
 finelogins  - password info
-create table finelogins (
+> create table finelogins (
 login_id serial not null primary key,
 email varchar(150) not null REFERENCES fineusers (email ) ON DELETE CASCADE,
 password varchar(150) not null
 )
 
 countrydata  - World Bank Info
-create table countrydata (
+> create table countrydata (
 id serial not null primary key,
 total_population real,
 birth_rate real,
@@ -101,7 +101,7 @@ country varchar(100),
 )
 
 reports - list of available reports (views)
-create table reports( 
+> create table reports( 
 report_id serial not null primary key,
 report varchar(255),
 title varchar(255),
@@ -111,7 +111,7 @@ link varchar(255)
 )
 
 userstokens - refresh tokens for users
-create table userstokens (
+> create table userstokens (
 id serial not null primary key,
 user_id integer REFERENCES fineusers (user_id) ON DELETE CASCADE,
 refresh_token varchar(1000),
@@ -119,7 +119,7 @@ device_id varchar(1000)
 )
 
 livedata - live data for update
-create table livedata (
+> create table livedata (
 id serial not null primary key,
 x bigint,
 y real
@@ -139,23 +139,23 @@ User
 * post users/user/deleteprofile - protected, delete user profile
 
 Tokens and Auth
-get  users/verify 
-post users/refresh
-post users/user/deleterefreshtoken -  protected, delete refresh tokens for user by id
+* get  users/verify 
+* post users/refresh
+* post users/user/deleterefreshtoken -  protected, delete refresh tokens for user by id
 
 Data management
-post wbapi/updatedb -  protected, refresh - update data from World Bank API
-get wbapi/data - get all data (flat table)
-get wbapi/datachart - get data for Chart in special format, for specific data code
-get wbapi/geography - get data in geography format;
-get wbapi/datapages - get data with server side pagination (Pages format);
-get wbapi/reports -  get reports info
-get wbapi/allusersreports - get al lusers reports, including all reports and info;
-post  wbapi/allusersreports -  protected, insert User Report (Add button)
-post  wbapi/deleteuserreport -  protected, delete User Report (Remove button);
-get wbapi/alluserreportsisdispaly/:user_id - all User Reportsis Display
-post  wbapi/cornjobdata - start/stop cron Job Data collection or clear table;
-get  wbapi/cornjobdata - live Data 
+* post wbapi/updatedb -  protected, refresh - update data from World Bank API
+* get wbapi/data - get all data (flat table)
+* get wbapi/datachart - get data for Chart in special format, for specific data code
+* get wbapi/geography - get data in geography format;
+* get wbapi/datapages - get data with server side pagination (Pages format);
+* get wbapi/reports -  get reports info
+* get wbapi/allusersreports - get al lusers reports, including all reports and info;
+* post  wbapi/allusersreports -  protected, insert User Report (Add button)
+* post  wbapi/deleteuserreport -  protected, delete User Report (Remove button);
+* get wbapi/alluserreportsisdispaly/:user_id - all User Reportsis Display
+* post  wbapi/cornjobdata - start/stop cron Job Data collection or clear table;
+* get  wbapi/cornjobdata - live Data 
 
 ## Frontend
 
@@ -175,17 +175,17 @@ Users have the capability to save preferences and manage their profiles, encompa
 
 Pages and main components
 Side bar includes:
-Dashboard - cards of reports
-My reports - dynamically updated list of user reports
-Settings - Reports management (add and remove from My reports list) and Profile
-Developer settings - additional features
+* Dashboard - cards of reports
+* My reports - dynamically updated list of user reports
+* Settings - Reports management (add and remove from My reports list) and Profile
+* Developer settings - additional features
 
 Nav bar:
-button to open and close Side bar
-Dashboard button
-Switch themes button
-User Name and Role info
-Log out and Profile in additional menu
+* Button to open and close Side bar
+* Dashboard button
+* Switch themes button
+* User Name and Role info
+* Log out and Profile in additional menu
 
 ## Authentication
 
