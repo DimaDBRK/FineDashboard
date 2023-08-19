@@ -209,8 +209,20 @@ This role-based structure ensures a controlled and secure user experience.
 The application is designed with a modular structure, providing the potential for seamless integration of additional features and data sources in the future.
 
 ## Installation
+1. .env file for server includes:
+- PORT => by server side
+- DB_HOST=...
+- DB_PORT=...
+- DB_USER=...
+- DB_NAME=...
+- DB_PASS=...
+- ACCESS_TOKEN_SECRET=...
+- ACCESS_TOKEN_EXPIRES_IN=60
+- REFRESH_TOKEN_SECRET=...
+- REFRESH_TOKEN_EXPIRES_IN=300
 
-1. Clone the repository:
+
+2. Clone the repository:
 
 ```bash
 git clone REPO NAME
@@ -231,3 +243,5 @@ Start the React development server:
 npm start
 
 4. The Node.js server will run and the React development server will run on http://localhost:3000. You can access the application by opening your web browser and navigating to http://localhost:3000.
+
+
