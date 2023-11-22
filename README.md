@@ -9,7 +9,9 @@ The application presents a diverse range of graphs derived from the data stored 
 - Authentication System: JWT-based
 
 Demo video: https://www.youtube.com/watch?v=uxbMDJWxTMs
+
 Live demo: https://fine-dashboard.onrender.com/
+
 ![Chart](chart.jpg)
 ## Table of Contents
 
